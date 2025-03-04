@@ -1,3 +1,4 @@
+ {% load static %} 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="asset/bootstrap.min.css">
-  <link rel="stylesheet" href="asset/style.css">
+  <link rel="stylesheet" href="{% static "style.css" %} ">
 </head>
 <body>
 
@@ -17,13 +18,19 @@
 
   <div class="app-content">
     {% include "header.html" %}
+    
+  {% include "header2.html" %}
+  {% include "produit.html" %}
+
+
+
   </div>
 
-  {% include "header2.html" %}
 
   <!-- Scripts -->
   <script src="asset/script.js"></script>
   <script src="asset/bootstrap.min.js"></script>
+  <script> src="{% static "script.js" %} %}"</script>
 
 </body>
 </html>
