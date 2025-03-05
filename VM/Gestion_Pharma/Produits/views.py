@@ -1,15 +1,17 @@
 from django.shortcuts import render
+from django.views.generic import ListView
+from .models import Produits
 
-from .models import *
-# Create your views here.
+# Classe pour afficher la liste des produits
+class Affichage(ListView):
+    # Définir le template à utiliser
+    template_name = "home.html"
+    
+    # Récupérer toutes les instances de Produits
+    queryset = Produits.objects.all()
 
-def home(request):
+    # Définir le nom du contexte pour accéder aux données dans le template
+    context_object_name = 'produits'
 
-#recuperation des données
-    donnees = Produits.objects.all()
-
-    context = {
-        'donnees': donnees
-    }
-
-    return render(request, 'home.html' , context)
+    # Ajouter la pagination
+    paginate_by = 10  # Limite de 10 produits par page

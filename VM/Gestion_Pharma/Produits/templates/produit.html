@@ -1,69 +1,68 @@
-<style> 
-  .button {
-    padding: 5px 100px;  /* Correction du padding */
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;  /* Correction de 'tetx-align' */
-    color: white;
-    
-}
+{% extends "base.html" %}
 
-/* Séparation correcte des classes pour les couleurs */
-.red {
-    background-color: red;
-}
+{% block produit %}
+    <div class="products-area-wrapper tableView">
+        <div class="products-header">
+            <div class="product-cell image">
+                Nom Produit
+                <button class="sort-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
+                        <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="product-cell category">Catégorie</div>
+            <div class="product-cell status-cell">Statut & Quantité</div>
+            <div class="product-cell sales">Prix</div>
+            <div class="product-cell stock">Description</div>
+            <div class="product-cell price">Date Ajout</div>
+            <div class="product-cell price">Date Expiration</div>
+        </div>
 
-.orange {
-    background-color: orange;
-}
+        {% for n in produits %}
+        <div class="products-row">
+            <button class="cell-more-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <!-- Ajoutez ici le contenu du SVG -->
+                </svg>
+            </button>
+            <div class="product-cell image">
+                <img src="https://via.placeholder.com/100" alt="product">
+                <span>{{ n.name }}</span>
+            </div>
+            <div class="product-cell category">{{ n.category.name }}</div>
+            <div class="product-cell status-cell">
+                <span class="status active">
+                    <button class="button {% if n.quantite <= 10 %}red{% elif n.quantite <= 20 %}orange{% else %}green{% endif %}">
+                    </button> 
+                    {{ n.quantite }}
+                </span>
+            </div>
+            <div class="product-cell sales"><span class="cell-label">Prix:</span>{{ n.price }}</div>
+            <div class="product-cell stock"><span class="cell-label">Description:</span>{{ n.description }}</div>
+            <div class="product-cell price"><span class="cell-label">Date Ajout:</span>{{ n.date_ajout|date:"d/m/Y" }}</div>
+            <div class="product-cell price"><span class="cell-label">Date Expiration:</span>{{ n.date_expiration|date:"d/m/Y" }}</div>
+        </div>
+        {% endfor %}
+    </div>
 
-.green {
-    background-color: green;
-}
+    <!-- Pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if produits.has_previous %}
+                <a href="?page=1">&laquo; première</a>
+                <a href="?page={{ produits.previous_page_number }}">précédente</a>
+            {% endif %}
 
-  </style>
-<div class="products-area-wrapper tableView">
-  <div class="products-header">
-      <div class="product-cell image">
-          Items
-          <button class="sort-button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                  <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5z"/>
-              </svg>
-          </button>
-      </div>
-      <div class="product-cell category">Category</div>
-      <div class="product-cell status-cell">Status</div>
-      <div class="product-cell sales">Sales</div>
-      <div class="product-cell stock">Stock</div>
-      <div class="product-cell price">Price</div>
-  </div>
+            <span class="current">
+                Page {{ produits.number }} sur {{ produits.paginator.num_pages }}.
+            </span>
 
-  {% for n in donnees %}
-  <div class="products-row">
-      <button class="cell-more-button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="1"/>
-              <circle cx="12" cy="5" r="1"/>
-              <circle cx="12" cy="19" r="1"/>
-          </svg>
-      </button>
-      <div class="product-cell image">
-          <img src="https://via.placeholder.com/100" alt="product">
-          <span>{{ n.name }}</span>
-      </div>
-      <div class="product-cell category"><span class="cell-label">Category:</span> {{ n.category.name }}</div>
-      <div class="product-cell status-cell">
-          <span class="cell-label">Status:</span>
-          <span class="status active">
-              <button class="button  {{ n.status_quantite }}"></button>{{ n.quantite }}
-          </span>
-      </div>
-      <div class="product-cell sales"><span class="cell-label">Prix:</span> {{ n.price }}</div>
-      <div class="product-cell stock"><span class="cell-label">Description:</span> {{ n.description }}</div>
-      <div class="product-cell price"><span class="cell-label">Date Ajout:</span> {{ n.date_ajout }}</div>
-      <div class="product-cell price"><span class="cell-label">Date Expiration:</span> {{ n.date_expiration }}</div>
+            {% if produits.has_next %}
+                <a href="?page={{ produits.next_page_number }}">suivante</a>
+                <a href="?page={{ produits.paginator.num_pages }}">dernière &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 
-  </div>
-  {% endfor %}
-</div>
+{% endblock produit %}
