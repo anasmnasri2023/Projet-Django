@@ -1,68 +1,182 @@
-{% extends "base.html" %}
+
+{% load static %}
+
+{% block header2 %}
+{% include "header2.html" %}
+{% endblock header2  %}
 
 {% block produit %}
-    <div class="products-area-wrapper tableView">
-        <div class="products-header">
-            <div class="product-cell image">
-                Nom Produit
-                <button class="sort-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                        <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5z"/>
-                    </svg>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages  %}                            
+    <li {% if message.tags %} class="{ message.tags }" {% endif %} style="color: green;" >
+        {{message}}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="products-area-wrapper tableView">
+  <style>
+    .button {
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      color: white;
+    }
+  
+    .red {
+      background-color: red;
+    }
+  
+    .orange {
+      background-color: orange;
+    }
+  
+    .green{
+      background-color: green;
+    }
+  
+  </style>
+    <!-- Titre du tableau  -->
+    <div class="products-header">
+      <div class="product-cell image">
+        Nom Produit
+        <button class="sort-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+        </button>
+      </div>
+      <div class="product-cell category">Categories<button class="sort-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+        </button></div>
+      <div class="product-cell status-cell">Statut & Quantité<button class="sort-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+        </button></div>
+      <div class="product-cell sales">Prix<button class="sort-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+        </button></div>
+      <div class="product-cell stock">Description<button class="sort-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+        </button></div>
+      <div class="product-cell price">Date Ajout<button class="sort-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+        </button></div>
+      <div class="product-cell price">Date Expiration<button class="sort-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+        </button></div>
+      <div class="product-cell price">Actions<button class="sort-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+        </button></div>
+    </div>
+    <!-- fin -->
+    
+    {% for n in object_list %}
+    
+    <!-- Produit -->
+    <div class="products-row" id="produit-{{ n.id }}">
+        <button class="cell-more-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+        </button>
+        
+          <div class="product-cell image">
+            <!-- si il y a une image dans la base de données corespondant  -->
+            {%  if n.image %}
+            <!-- affiche le avec ceci -->
+            <img src="{{n.image.url}}" alt="product">
+            {% else %}
+            <!-- alors "si il n'y a pas d'image dans la base de données pour ce produit" -->
+             <!-- affiche une image par defaut  -->
+            <img src="{% static '1.jpeg' %}" alt="product">
+            {% endif %}
+            <span> {{n.name}}</span>
+           
+          </div>
+          
+        <div class="product-cell category"><span class="cell-label">Category:</span>{{n.category}}</div>
+        <div class="product-cell status-cell">
+          <span class="cell-label">Status:</span>
+          <span class="status active"> <button class="button {{n.statut_quantite}}"></button> {{n.quantite}}</span>
+        </div>
+        <div class="product-cell sales"><span class="cell-label">Prix:</span>{{n.price}} FCFA</div>
+        <div class="product-cell stock"><span class="cell-label">Description:</span>{{n.description}}</div>
+        <div class="product-cell price"><span class="cell-label">Date Ajout:</span>{{n.date_ajout}}</div>
+        <div class="product-cell price"><span class="cell-label">Date Expiration:</span>{{n.date_expiration}}</div>
+        <div class="product-cell price"><span class="cell-label">
+         Actions :</span>
+         <a href="{% url 'modifier' n.pk %}" class="btn btn-info"> <i class="bi bi-pencil-square"></i></a> 
+
+         <a href="{% url 'delete' n.pk %}" class="btn btn-danger"> <i class="bi bi-trash3"></i></a> 
+        
+
+         <!-- <a class="btn btn-danger"><i class="bi bi-trash3 delete-button" data-id="{{ n.id }}"></i></a> -->
+         
+         <div class="modal" id="successModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Succès</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
                 </button>
+              </div>
+              <div class="modal-body">
+                <p>Le produit a été supprimé avec succès.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+              </div>
             </div>
-            <div class="product-cell category">Catégorie</div>
-            <div class="product-cell status-cell">Statut & Quantité</div>
-            <div class="product-cell sales">Prix</div>
-            <div class="product-cell stock">Description</div>
-            <div class="product-cell price">Date Ajout</div>
-            <div class="product-cell price">Date Expiration</div>
+          </div>
         </div>
 
-        {% for n in produits %}
-        <div class="products-row">
-            <button class="cell-more-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-                    <!-- Ajoutez ici le contenu du SVG -->
-                </svg>
-            </button>
-            <div class="product-cell image">
-                <img src="https://via.placeholder.com/100" alt="product">
-                <span>{{ n.name }}</span>
-            </div>
-            <div class="product-cell category">{{ n.category.name }}</div>
-            <div class="product-cell status-cell">
-                <span class="status active">
-                    <button class="button {% if n.quantite <= 10 %}red{% elif n.quantite <= 20 %}orange{% else %}green{% endif %}">
-                    </button> 
-                    {{ n.quantite }}
-                </span>
-            </div>
-            <div class="product-cell sales"><span class="cell-label">Prix:</span>{{ n.price }}</div>
-            <div class="product-cell stock"><span class="cell-label">Description:</span>{{ n.description }}</div>
-            <div class="product-cell price"><span class="cell-label">Date Ajout:</span>{{ n.date_ajout|date:"d/m/Y" }}</div>
-            <div class="product-cell price"><span class="cell-label">Date Expiration:</span>{{ n.date_expiration|date:"d/m/Y" }}</div>
+         <a href="{% url 'details' n.pk %}" class="btn btn-primary"> <i class="bi bi-info-circle"></i> </a> 
+
         </div>
-        {% endfor %}
+        
+      </div>
+      <!-- fin -->
+      {% endfor %}
     </div>
+</div>  
 
-    <!-- Pagination -->
-    <div class="pagination">
-        <span class="step-links">
-            {% if produits.has_previous %}
-                <a href="?page=1">&laquo; première</a>
-                <a href="?page={{ produits.previous_page_number }}">précédente</a>
-            {% endif %}
 
-            <span class="current">
-                Page {{ produits.number }} sur {{ produits.paginator.num_pages }}.
-            </span>
 
-            {% if produits.has_next %}
-                <a href="?page={{ produits.next_page_number }}">suivante</a>
-                <a href="?page={{ produits.paginator.num_pages }}">dernière &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
+
+<script src="{% static 'jquery-3.7.1.min.js' %}"></script>
+<!-- Script pour supprimer -->
+
+<script>
+ $(document).ready(function() {
+     $('.delete-button').on('click', function() {
+         var produitId = $(this).data('id');
+         $.ajax({
+             url: '/supprimer/' + produitId + '/',
+             type: 'POST',
+
+             data: {
+                 'csrfmiddlewaretoken': '{{ csrf_token }}'
+             },
+
+             success: function(response) {
+                 if (response.success) {
+                     $('#produit-' + produitId).remove();
+                     $('#successModal').modal('show');
+                 } else {
+                     alert('Erreur lors de la suppression.');
+                 }
+             },
+
+             error: function() {
+                 alert('Erreur lors de la suppression.');
+             }
+         });
+     });
+ });
+</script>
+
+
+
 
 {% endblock produit %}
