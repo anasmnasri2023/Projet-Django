@@ -1,4 +1,3 @@
-
 {% load static %}
 
 {% block header2 %}
@@ -9,8 +8,8 @@
 
 {% if messages %}
 <ul class="messages">
-    {% for message in messages  %}                            
-    <li {% if message.tags %} class="{ message.tags }" {% endif %} style="color: green;" >
+    {% for message in messages %}                            
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %} style="color: green;" >
         {{message}}
     </li>
     {% endfor %}
@@ -109,7 +108,7 @@
 
          <a href="{% url 'delete' n.pk %}" class="btn btn-danger"> <i class="bi bi-trash3"></i></a> 
         
-
+         <!-- Pour utiliser la suppression AJAX, décommentez cette ligne et commentez la ligne au-dessus -->
          <!-- <a class="btn btn-danger"><i class="bi bi-trash3 delete-button" data-id="{{ n.id }}"></i></a> -->
          
          <div class="modal" id="successModal" tabindex="-1" role="dialog">
