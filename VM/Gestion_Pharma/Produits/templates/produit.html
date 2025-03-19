@@ -105,7 +105,9 @@
         <div class="product-cell price"><span class="cell-label">Date Expiration:</span>{{n.date_expiration}}</div>
         <div class="product-cell price"><span class="cell-label">
          Actions :</span>
-         
+         <a href="{% url 'modifier' n.pk %}" class="btn btn-info"> <i class="bi bi-pencil-square"></i></a> 
+
+         <a href="{% url 'delete' n.pk %}" class="btn btn-danger"> <i class="bi bi-trash3"></i></a> 
         
 
          <!-- <a class="btn btn-danger"><i class="bi bi-trash3 delete-button" data-id="{{ n.id }}"></i></a> -->
@@ -129,6 +131,7 @@
           </div>
         </div>
 
+         <a href="{% url 'details' n.pk %}" class="btn btn-primary"> <i class="bi bi-info-circle"></i> </a> 
 
         </div>
         
